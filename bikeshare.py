@@ -1,7 +1,7 @@
 import time
 import pandas as pd
 import numpy as np
-
+# This project written by Waad AlShuaibi
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
@@ -35,9 +35,9 @@ def get_filters():
         continue
       else:
         break
-        
+
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
-    
+
     while True:
       day = input("\nSpecify a day to filter by? Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday or all.\n").lower().capitalize()
       if day not in ('Monday', 'Sunday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'All'):
@@ -65,27 +65,27 @@ def load_data(city, month, day):
 
     # filter by the city
     df = pd.read_csv(CITY_DATA[city])
-    
+
     # convert the start and end time from strings to dates, so we can extract the day
-    
+
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['End Time'] = pd.to_datetime(df['End Time'])
-    
+
     # Extract the day and month into their seperate columns
     df['day'] = df['Start Time'].dt.day_name()
     df['month'] = df['Start Time'].dt.month_name()
-   
-    
-    # filter by month if applicable 
+
+
+    # filter by month if applicable
     if month != 'All':
         df = df[df['month'] == month]
-    
-    # filter by day of week if applicable 
+
+    # filter by day of week if applicable
     if day != 'All':
-       
+
        df = df[df['day'] == day]
-    
-    
+
+
     return df
 
 
@@ -170,7 +170,7 @@ def user_stats(df):
      print("Counts of gender:\n{} \n".format(user_genders))
     else:
      print("No gender data available:\n{} \n")
-       
+
 
     # TO DO: Display earliest, most recent, and most common year of birth
     if ('Birth Year' in list(df.columns)):
@@ -189,30 +189,30 @@ def user_stats(df):
 
 
 def main():
-      
-    
+
+
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-        
+
         num_rows = 5
         row_initial= 0
-       
+
         raw_data =  input('\nWould you like to see raw data? Enter yes or no.\n')
         while True:
-            
+
             if raw_data.lower() == 'yes':
                 print('\nShown rows from {} to {}:'.format(row_initial+1, num_rows))
                 print('\n', df.iloc[row_initial : num_rows])
 
                 num_rows += 5
                 row_initial += 5
-              
+
                 raw_data =  input('\nWould you like to see raw data? Enter yes or no.\n')
 
-            else:   
+            else:
                 break
-        
+
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
@@ -225,4 +225,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
