@@ -2,7 +2,8 @@ import time
 import pandas as pd
 import numpy as np
 # This project written by Waad AlShuaibi
-# Programming for data science 
+# Programming for data science
+# For beginners 
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
